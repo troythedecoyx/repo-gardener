@@ -1,0 +1,38 @@
+[project]
+name = "repo-gardener"
+version = "0.1.0"
+description = "A beautiful CLI tool that analyzes any Git repository (local or GitHub URL) and gives it a Garden Score — helping developers understand and improve repo quality."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    { name = "Troy Scalf", email = "dev@troythedecoyx.com" },
+]
+keywords = ["github", "repository", "analysis", "cli", "code-quality", "developer-tools", "repo-health"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/troythedecoyx/repo-gardener"
+Repository = "https://github.com/troythedecoyx/repo-gardener"
+Issues = "https://github.com/troythedecoyx/repo-gardener/issues"
+
+[project.scripts]
+repo-gardener = "repo_gardener:main"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
