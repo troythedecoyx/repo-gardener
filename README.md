@@ -56,4 +56,4 @@ Feel free to open issues or PRs!
 
 ---
 
-Made with ❤️ by Troy Scalf
+Made with ❤️ by troythedecoyx
