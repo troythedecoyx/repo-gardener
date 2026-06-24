@@ -41,7 +41,7 @@ def run_ruff_check(path: Path):
         issues = json.loads(result.stdout) if result.stdout.strip() else []
         score = max(40, 100 - len(issues) * 6)
         return {"score": score, "issues": len(issues)}
-    except:
+    except Exception:
         return {"score": 65, "issues": 0}
 
 def get_garden_score(repo_path: str):
@@ -55,7 +55,7 @@ def get_garden_score(repo_path: str):
     try:
         repo = git.Repo(path)
         is_git = True
-    except:
+    except Exception:
         is_git = False
         repo = None
 
@@ -76,16 +76,16 @@ def get_garden_score(repo_path: str):
             commits = len(list(repo.iter_commits(max_count=300)))
             if commits > 0:
                 last_commit_date = repo.head.commit.committed_datetime.strftime("%Y-%m-%d")
-        except:
+        except Exception:
             pass
 
     ruff_data = run_ruff_check(path)
 
-    # Scoring
+    # Scoring (tweaked Git Hygiene slightly for realistic small-project scores)
     doc_score = min(100, 50 + (30 if has_readme else 0) + (20 if len(md_files) >= 2 else 0))
     test_score = min(100, 40 + (40 if has_tests_dir or len(test_files) > 3 else 0) + (20 if len(test_files) > 8 else 0))
     struct_score = min(100, 60 + (15 if has_gitignore else 0) + (15 if has_pyproject else 0) + (10 if has_license else 0))
-    git_score = min(100, 40 + min(commits * 4, 60))
+    git_score = min(100, 50 + min(commits * 5, 50))
     quality_score = ruff_data["score"]
 
     overall = int((doc_score + test_score + struct_score + git_score + quality_score) / 5)
@@ -109,7 +109,7 @@ def get_garden_score(repo_path: str):
             "Documentation": {"score": doc_score, "status": "✅ Excellent" if doc_score >= 85 else "🟡 Fair"},
             "Testing & Quality": {"score": test_score, "status": "✅ Good" if test_score >= 70 else "⚠️ Needs work"},
             "Project Structure": {"score": struct_score, "status": "✅ Solid"},
-            "Git Hygiene": {"score": git_score, "status": "✅ Active" if commits > 15 else "🟡 Quiet"},
+            "Git Hygiene": {"score": git_score, "status": "✅ Active" if commits > 8 else "🟡 Quiet"},
             "Code Quality": {"score": quality_score, "status": f"{'✅' if quality_score >= 80 else '🟡'} ({ruff_data['issues']} issues)"},
         },
         "suggestions": suggestions,
