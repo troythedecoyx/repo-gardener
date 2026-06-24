@@ -7,7 +7,6 @@ from pathlib import Path
 import git
 import tempfile
 import shutil
-from urllib.parse import urlparse
 import subprocess
 import json
 

@@ -1,0 +1,16 @@
+LICENSE
+README.md
+pyproject.toml
+src/repo_gardener/__init__.py
+src/repo_gardener/__main__.py
+src/repo_gardener/analyzer.py
+src/repo_gardener/cli.py
+src/repo_gardener/scorers.py
+src/repo_gardener.egg-info/PKG-INFO
+src/repo_gardener.egg-info/SOURCES.txt
+src/repo_gardener.egg-info/dependency_links.txt
+src/repo_gardener.egg-info/entry_points.txt
+src/repo_gardener.egg-info/top_level.txt
+src/repo_gardener/generators/__init__.py
+src/repo_gardener/generators/readme.py
+tests/test_analyzer.py
